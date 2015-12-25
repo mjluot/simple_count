@@ -36,7 +36,7 @@ def main():
     #Get the data
     query_cmd = dep_search_dir + 'query.py'
     iargs = [query_cmd, '-d', db, '-m', '0', query.encode('utf-8')]
-    print iargs
+    #print iargs
     p = subprocess.Popen(iargs, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = p.communicate()
     for l in out.split('\n'):
@@ -50,5 +50,5 @@ def main():
             except:
                 pass
     for l, c in zip(token_list, token_counts):
-        print l, c
+        print l.encode('utf8'), c
 main()
