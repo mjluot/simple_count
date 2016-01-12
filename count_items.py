@@ -24,17 +24,16 @@ def main():
     token_list = [l.strip() for l in inf] 
     inf.close()
 
-    token_counts = [0 for t in token_list]
-
     arg_list = token_list[:]
     if args.lemma: 
         arg_list = [u'L=' + t for t in token_list]
 
     for b in range(0, len(arg_list), 20):
-        batch(arg_list[b:b+20],args)
+        batch(arg_list[b:b+20],args,token_list[b:b+20],)
 
-def batch(arg_list, args):
+def batch(arg_list, args, token_list):
 
+    token_counts = [0 for t in token_list]
     query = '|'.join(arg_list)
     dep_search_dir = args.dep_search_path
     db = args.db_path
