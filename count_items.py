@@ -28,8 +28,8 @@ def main():
     if args.lemma: 
         arg_list = [u'L=' + t for t in token_list]
 
-    for b in range(0, len(arg_list), 20):
-        batch(arg_list[b:b+20],args,token_list[b:b+20],)
+    for b in range(0, len(arg_list)):
+        batch(arg_list[b],args,token_list[b],)
 
 def batch(arg_list, args, token_list):
 
