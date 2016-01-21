@@ -34,25 +34,18 @@ def main():
 def batch(arg_list, args, token_list):
 
     token_counts = [0 for t in token_list]
-    query = '|'.join(arg_list)
+    query = '"' + '|'.join(arg_list) + '"'
     dep_search_dir = args.dep_search_path
     db = args.db_path
     #Get the data
     query_cmd = dep_search_dir + 'query.py'
     iargs = [query_cmd, '-d', db, '-m', '0', query.encode('utf-8')]
-    #print iargs
     p = subprocess.Popen(iargs, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = p.communicate()
-    for l in out.split('\n'):
-        if '\t' in l:
-            try:
-                token = l.split('\t')[1].decode('utf8')
-                if args.lemma:
-                    token = l.split('\t')[2].decode('utf8')
-                if token in token_list:
-                    token_counts[token_list.index(token)] += 1
-            except:
-                pass
-    for l, c in zip(token_list, token_counts):
-        print l.encode('utf8'), c
+    count = 0
+    for l in reversed(out.split('\n')):
+        if 'Total number of hits:' in l:
+            count = int(l.split(':')[-1].strip())
+    print query[1:-1], count
+
 main()
