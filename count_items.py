@@ -34,7 +34,11 @@ def main():
 def batch(arg_list, args, token_list):
 
     token_counts = [0 for t in token_list]
-    query = '"' + '|'.join(arg_list) + '"'
+    if not arg_list[0].startswith('L='):
+         query = '"' + '|'.join(arg_list) + '"'
+    else:
+         query = '|'.join(arg_list)
+
     dep_search_dir = args.dep_search_path
     db = args.db_path
     #Get the data
