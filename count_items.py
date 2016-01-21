@@ -42,10 +42,13 @@ def batch(arg_list, args, token_list):
     iargs = [query_cmd, '-d', db, '-m', '0', query.encode('utf-8')]
     p = subprocess.Popen(iargs, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = p.communicate()
+    #print out, err
+    #import pdb;pdb.set_trace()
     count = 0
-    for l in reversed(out.split('\n')):
+    for l in err.split('\n'):
         if 'Total number of hits:' in l:
             count = int(l.split(':')[-1].strip())
+            break
     print query[1:-1], count
 
 main()
