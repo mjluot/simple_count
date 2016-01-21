@@ -53,6 +53,6 @@ def batch(arg_list, args, token_list):
         if 'Total number of hits:' in l:
             count = int(l.split(':')[-1].strip())
             break
-    print arg_list[0], count
+    print arg_list[0].encode('utf-8'), count
 
 main()
